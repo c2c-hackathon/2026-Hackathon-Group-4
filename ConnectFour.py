@@ -36,18 +36,33 @@ class ConnectFour:
     def reset_game(self):
         #TODO reset the game state to its original empty state
         self.board.clear_board()
+        for r in range(1,len(row)):
+            for c in self.game_state[r]:
+           # self.board.set_callback(c, r, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+                self.board.set_cell_color(c,r, Colors.WHITE)
 
     def register_callbacks(self):
         #TODO: Register callbacks that will be run when buttons are pressed and released
         self.board.set_callback(0, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
-        self.board.activate_key(0, 0, Action.BUTTON_PRESSED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+        #self.board.activate_key(0, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
         #self.board.update_display()
+        self.board.set_cell_color(0, 0, Colors.WHITE)
         row = self.game_state[0]
 
         for col in range(len(row)):
             self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
-            self.board.activate_key(col, 0, Action.BUTTON_PRESSED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+            #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+            self.board.set_cell_color(col,0, Colors.GREEN)
+        
+        #everything else
+        for r in range(1,len(row)):
+          for c in range(len(self.game_state[r])-1):
+            self.board.set_callback(c, r, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            self.board.set_cell_color(c,r, Colors.WHITE)
+        
         self.board.update_display()
+
+        
 
         pass
   
@@ -114,7 +129,7 @@ class ConnectFour:
         if self.game_state(1,col) != "o":
             return True
 
-    def check_win(self):
+#    def check_win(self):
         #TODO: Check the game state to see if any player has won or if there is a draw
         for i in self.game_state[:len(self.game_state(0)) - 4]:
             for j in i[;len(i) - 4]:
