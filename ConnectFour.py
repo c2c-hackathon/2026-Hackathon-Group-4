@@ -14,7 +14,7 @@ class ConnectFour:
         self.board = board if board is not None else NeoTrellisGame()
         super().__init__()
         self.game_state = [
-            ["o", "o", "o", "o", "o", "o", "o", "b"],
+            ["c", "c", "c", "c", "c", "c", "c", "b"],
             ["o", "o", "o", "o", "o", "o", "o", "b"],
             ["o", "o", "o", "o", "o", "o", "o", "b"],
             ["o", "o", "o", "o", "o", "o", "o", "b"],
