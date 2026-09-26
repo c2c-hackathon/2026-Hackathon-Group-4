@@ -22,6 +22,8 @@ class ConnectFour:
             ["o", "o", "o", "o", "o", "o", "o", "b"],
             ["o", "o", "o", "o", "o", "o", "o", "b"],  
             ["o", "o", "o", "o", "o", "o", "o", "b"],
+
+
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
         self.register_callbacks()
         
@@ -30,7 +32,7 @@ class ConnectFour:
         
 
 
-
+        
     def reset_game(self):
         #TODO reset the game state to its original empty state
         self.board.clear_board()
@@ -60,15 +62,16 @@ class ConnectFour:
         pass
 
 
+
   
         
 
     def find_lowest_empty_row(self, col: int):
         #TODO: Return the lowest empty row in the column.
         pass
-        # for i in range(7, 0, -1):
-            # if self.game_state[i][col] == "o":
-
+        for i in self.game_state:
+            if self.game_state[i][col] != "o" or self.game_state[i][col] != "c":
+                return i - 1
                 
 
     def place_piece(self, col: int):
@@ -90,21 +93,34 @@ class ConnectFour:
 
     def is_board_full(self):
         #TODO: Return whether or not the game state has no more legal moves
-        pass  
+
+        for i in self.game_state:
+            for j in i:
+                if j == "o":
+                    return False
+
+                
 
     def get_player_color(self, player) -> tuple[int, int, int]:
         #TODO: Return the color for the given player 
-        pass
+        if player == PLAYER_1:
+            return PLAYER_1
+        else:
+            return PLAYER_2
 
-       
 
     def is_column_full(self, col: int):
         #TODO: Return if the given column is currently full
-        pass
+        if self.game_state(1,col) != "o":
+            return True
 
     def check_win(self):
         #TODO: Check the game state to see if any player has won or if there is a draw
-        pass
+        for i in self.game_state[:len(self.game_state(0)) - 4]:
+            for j in i[;len(i) - 4]:
+                #diagonal
+                if 
+        
 
     def show_winner(self):
         #TODO: Display on the board who won
