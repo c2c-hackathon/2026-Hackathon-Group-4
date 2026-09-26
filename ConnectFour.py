@@ -21,7 +21,7 @@ class ConnectFour:
 
     def reset_game(self):
         #TODO reset the game state to its original empty state
-        pass
+        clear_board(self)
 
     def register_callbacks(self):
         #TODO: Register callbacks that will be run when buttons are pressed and released
