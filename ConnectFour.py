@@ -94,12 +94,12 @@ class ConnectFour:
                 player = PLAYER_2
 
 
-            if is_board_full():
+            if self.is_board_full():
                 show_tie_game()
                 pass
-            elif is_column_full(self, col: int):
+            elif self.is_column_full(x):
                 pass
-            lowest = find_lowest_empty_row(x)
+            lowest = self.find_lowest_empty_row(x)
             #set new coord to color of player
             #set color to coord
             self.board.set_cell_color(lowest,x, player)
@@ -134,6 +134,11 @@ class ConnectFour:
 
     def switch_player(self):
         #TODO: Change which player is curently placing a piece. Keep track of this in some sort of variable
+        global TURN
+        if TURN :
+            TURN = False
+        else:
+            TURN = True
         pass
 
     def show_current_player(self):
@@ -173,10 +178,10 @@ class ConnectFour:
 
     def is_column_full(self, col: int):
         #TODO: Return if the given column is currently full
-        if self.game_state(1,col) != "o":
+        if self.game_state[1][col] != "o":
             return True
 
-#    def check_win(self):
+    def check_win(self):
         #TODO: Check the game state to see if any player has won or if there is a draw
         for i in self.game_state[:len(self.game_state(0)) - 4]:
             for j in i[len(i) - 4]:
@@ -194,6 +199,7 @@ class ConnectFour:
         #TODO: Display on the board who won
         pass
 
+
     def show_tie_game(self):
         #TODO: Display on the board that there was a draw
         pass
@@ -209,5 +215,7 @@ class ConnectFour:
             self.board.set_cell_color(col,row, PLAYER_2)
         
       
-       
+   
+
+
 
