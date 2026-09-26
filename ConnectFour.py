@@ -1,8 +1,13 @@
 import typing
-
+import Colors
 from NeoTrellisGame import NeoTrellisGame, AbstractNeoTrellisGame, Action
 from adafruit_neotrellis.multitrellis import MultiTrellis
 from adafruit_neotrellis.neotrellis import NeoTrellis
+
+
+PLAYER_1 = Colors.RED
+
+PLAYER_2 = Colors.BLUE
 
 class ConnectFour:
     def __init__(self, board: typing.Optional[AbstractNeoTrellisGame] = None):
@@ -18,6 +23,7 @@ class ConnectFour:
             ["o", "o", "o", "o", "o", "o", "o", "b"],  
             ["o", "o", "o", "o", "o", "o", "o", "b"],
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
+
 
     def reset_game(self):
         #TODO reset the game state to its original empty state
@@ -36,12 +42,18 @@ class ConnectFour:
         See NeoTrellisGame.set_callback() for info about callbacks.
         """
         #TODO: Implement what will happen when the button at position x,y is pressed or released
+        if action == BUTTON_PRESSED:
+
+
   
         pass
 
     def find_lowest_empty_row(self, col: int):
         #TODO: Return the lowest empty row in the column.
         pass
+        for i in range(7, 0, -1):
+            if self.game_state[i][col] == "o":
+                
 
     def place_piece(self, col: int):
         #TODO: Finds the legal move in the column, and updates the game state to reflect the new piece, checking to see if a player has won with that new piece. Don't forget to play a sound!
@@ -66,6 +78,8 @@ class ConnectFour:
     def get_player_color(self, player) -> tuple[int, int, int]:
         #TODO: Return the color for the given player 
         pass
+
+       
 
     def is_column_full(self, col: int):
         #TODO: Return if the given column is currently full
