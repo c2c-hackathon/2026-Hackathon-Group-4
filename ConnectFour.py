@@ -8,6 +8,7 @@ from adafruit_neotrellis.neotrellis import NeoTrellis
 
 PLAYER_1 = Colors.RED
 
+
 PLAYER_2 = Colors.BLUE
 TURN = True
 
@@ -29,7 +30,7 @@ class ConnectFour:
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
         self.register_callbacks()
         #self.show_current_player()
-        self.show_tie_game()
+        #self.show_tie_game()
         
         
 
@@ -67,7 +68,33 @@ class ConnectFour:
           for c in range(len(self.game_state[r])-1):
             self.board.set_callback(c, r, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
             self.board.set_cell_color(c,r, Colors.WHITE)
-        
+        self.board.set_callback(7,1,self.handle_button_event)
+        self.board.activate_key(7, 1, Action.BUTTON_PRESSED)
+        self.board.set_cell_color(7,1, Colors.RED)
+       
+        self.board.set_callback(7,2,self.handle_button_event)
+        self.board.activate_key(7, 2, Action.BUTTON_PRESSED)
+        self.board.set_cell_color(7,2, Colors.PURPLE)
+
+        self.board.set_callback(7,3,self.handle_button_event)
+        self.board.activate_key(7, 3, Action.BUTTON_PRESSED)
+        self.board.set_cell_color(7,3, Colors.BROWN)
+
+        self.board.set_callback(7,4,self.handle_button_event)
+        self.board.activate_key(7, 4, Action.BUTTON_PRESSED)
+        self.board.set_cell_color(7,4, Colors.BLUE)
+
+        self.board.set_callback(7,5,self.handle_button_event)
+        self.board.activate_key(7, 5, Action.BUTTON_PRESSED)
+        self.board.set_cell_color(7,5, Colors.YELLOW)
+
+        self.board.set_callback(7,6,self.handle_button_event)
+        self.board.activate_key(7, 6, Action.BUTTON_PRESSED)
+        self.board.set_cell_color(7,6, Colors.ORANGE)
+
+
+
+
         self.board.update_display()
         
         
@@ -120,7 +147,18 @@ class ConnectFour:
             #set color to coord
             self.board.set_cell_color(lowest,x, player)
             #check if win
-            
+        if x==7 and y==1:
+            PLAYER_1 = Colors.RED
+        elif x==7 and y==2:
+            PLAYER_1 = Colors.PURPLE
+        else:
+            PLAYER_1 = Colors.BROWN    
+        if x==7 and y==4:
+            PLAYER_2 = Colors.BLUE
+        elif x==7 and y==5:
+            PLAYER_2 = Colors.YELLOW
+        else:
+            PLAYER_2 = Colors.ORANGE
 
 
 
