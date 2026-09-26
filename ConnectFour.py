@@ -51,7 +51,7 @@ class ConnectFour:
 
         for col in range(len(row)):
             self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
-            #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+            self.board.activate_key(col, 0, Action.BUTTON_PRESSED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
             self.board.set_cell_color(col,0, Colors.GREEN)
         
         #everything else
@@ -72,8 +72,30 @@ class ConnectFour:
         See NeoTrellisGame.set_callback() for info about callbacks.
         """
         #TODO: Implement what will happen when the button at position x,y is pressed or released
-        self.board.set_cell_color(x, y, PLAYER_1)
-        self.board.update_display()
+        #self.board.set_cell_color(x, y, PLAYER_1)
+        #self.board.update_display()
+
+        if y == 0 and x < 8:
+            if TURN == True:
+                player = PLAYER_1
+            else:
+                player = PLAYER_2
+
+
+            if is_board_full():
+                show_tie_game()
+                pass
+            elif is_column_full(self, col: int):
+                pass
+            lowest = find_lowest_empty_row(x)
+            #set new coord to color of player
+            #set color to coord
+            self.board.set_cell_color(lowest,x, player)
+            #check if win
+            
+
+
+
         pass
         
         
@@ -132,7 +154,7 @@ class ConnectFour:
 #    def check_win(self):
         #TODO: Check the game state to see if any player has won or if there is a draw
         for i in self.game_state[:len(self.game_state(0)) - 4]:
-            for j in i[;len(i) - 4]:
+            for j in i[len(i) - 4]:
                 #diagonal
                 if self.game_state(i,j) == self.game_state(i-1,j +1) and self.game_state(i,j ) == self.game_state(i-2,j+2) and self.game_state(i,j ) == self.game_state(i-3,j+3):
                     return True
