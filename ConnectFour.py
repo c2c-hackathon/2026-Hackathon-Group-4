@@ -1,4 +1,5 @@
 import typing
+import time
 import Colors
 from NeoTrellisGame import NeoTrellisGame, AbstractNeoTrellisGame, Action
 from adafruit_neotrellis.multitrellis import MultiTrellis
@@ -27,8 +28,8 @@ class ConnectFour:
 
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
         self.register_callbacks()
-        self.show_current_player()
-       
+        #self.show_current_player()
+        self.show_tie_game()
         
         
 
@@ -37,22 +38,28 @@ class ConnectFour:
     def reset_game(self):
         #TODO reset the game state to its original empty state
         self.board.clear_board()
-        for r in range(1,len(row)):
-            for c in self.game_state[r]:
+        for r in range(1,len(self.game_state)):
+            for c in range(len(self.game_state[r])):
            # self.board.set_callback(c, r, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
                 self.board.set_cell_color(c,r, Colors.WHITE)
+        #top row back to green
+        for col in range(len(self.game_state)):
+            self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+            self.board.set_cell_color(col,0, Colors.GREEN)
+        self.board.update_display()
 
     def register_callbacks(self):
         #TODO: Register callbacks that will be run when buttons are pressed and released
         self.board.set_callback(0, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
-        #self.board.activate_key(0, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+        self.board.activate_key(0, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
         #self.board.update_display()
         self.board.set_cell_color(0, 0, Colors.WHITE)
         row = self.game_state[0]
 
         for col in range(len(row)):
             self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
-            #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+            self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
             self.board.set_cell_color(col,0, Colors.GREEN)
         
         #everything else
@@ -75,6 +82,9 @@ class ConnectFour:
         #TODO: Implement what will happen when the button at position x,y is pressed or released
         self.board.set_cell_color(x, y, PLAYER_1)
         self.board.update_display()
+        if x == 7 and y==0:
+            self.reset_game()
+
         pass
         
         
@@ -106,18 +116,19 @@ class ConnectFour:
     def show_current_player(self):
         #TODO: Function to indicate on the board which player is currently placing a piece
         pass
+        global TURN
         if(TURN):
             for col in range(len(self.game_state[0])):
            # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
             #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
                 self.board.set_cell_color(col,0, PLAYER_1)
-            TURN = FALSE
+            #TURN = False
         else:
             for col in range(len(row)):
            # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
             #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
                 self.board.set_cell_color(col,0, PLAYER_2) 
-            TURN = True   
+            #TURN = True   
 
     def is_board_full(self):
         #TODO: Return whether or not the game state has no more legal moves
@@ -163,5 +174,17 @@ class ConnectFour:
     def show_tie_game(self):
         #TODO: Display on the board that there was a draw
         pass
-
+        #red
+        for r in range(0,4):
+          for c in range(len(self.game_state[r])-1):
+            #self.board.set_callback(c, r, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            self.board.set_cell_color(c,r, PLAYER_1)
+        #blue
+        for row in range(4,len(self.game_state)):
+          for col in range(len(self.game_state[row])-1):
+            #self.board.set_callback(c, r, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            self.board.set_cell_color(col,row, PLAYER_2)
+        
+      
+       
 
