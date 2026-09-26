@@ -22,9 +22,11 @@ class ConnectFour:
             ["o", "o", "o", "o", "o", "o", "o", "b"],
             ["o", "o", "o", "o", "o", "o", "o", "b"],  
             ["o", "o", "o", "o", "o", "o", "o", "b"],
+
+
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
 
-
+        
     def reset_game(self):
         #TODO reset the game state to its original empty state
         clear_board(self)
@@ -43,6 +45,7 @@ class ConnectFour:
         """
         #TODO: Implement what will happen when the button at position x,y is pressed or released
         if action == BUTTON_PRESSED:
+
 
 
   
@@ -73,7 +76,13 @@ class ConnectFour:
 
     def is_board_full(self):
         #TODO: Return whether or not the game state has no more legal moves
-        pass  
+
+        for i in self.game_state:
+            for j in i:
+                if j == "o":
+                    return False
+
+                
 
     def get_player_color(self, player) -> tuple[int, int, int]:
         #TODO: Return the color for the given player 
