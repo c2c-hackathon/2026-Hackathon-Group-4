@@ -60,12 +60,12 @@ class ConnectFour:
         self.board.set_cell_color(x, y, PLAYER_1)
         self.board.update_display()
         pass
-
+        
+        
 
 
   
         
-
     def find_lowest_empty_row(self, col: int):
         #TODO: Return the lowest empty row in the column.
         pass
@@ -119,7 +119,13 @@ class ConnectFour:
         for i in self.game_state[:len(self.game_state(0)) - 4]:
             for j in i[;len(i) - 4]:
                 #diagonal
-                if 
+                if self.game_state(i,j) == self.game_state(i-1,j +1) and self.game_state(i,j ) == self.game_state(i-2,j+2) and self.game_state(i,j ) == self.game_state(i-3,j+3):
+                    return True
+                elif self.game_state(i,j) == self.game_state(i,j +1) and self.game_state(i,j) == self.game_state(i,j +2) and self.game_state(i,j) == self.game_state(i,j +3):
+                    return True
+                elif self.game_state(i,j) == self.game_state(i+1,j) and self.game_state(i,j) == self.game_state(i+2,j) and self.game_state(i,j) == self.game_state(i+3,j):
+                    return True
+        return False
         
 
     def show_winner(self):
