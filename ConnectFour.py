@@ -156,15 +156,9 @@ class ConnectFour:
                 self.board.update_display()
                         
 
-            if self.is_board_full():
-                show_tie_game()
-                pass
-            elif self.is_column_full(x):
-                pass
-            lowest = self.find_lowest_empty_row(x)
+            
             #set new coord to color of player
             #set color to coord
-            self.board.set_cell_color(lowest,x, player)
             #check if win
         
 
