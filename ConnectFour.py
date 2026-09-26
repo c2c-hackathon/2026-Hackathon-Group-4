@@ -8,6 +8,7 @@ from adafruit_neotrellis.neotrellis import NeoTrellis
 PLAYER_1 = Colors.RED
 
 PLAYER_2 = Colors.BLUE
+TURN = True
 
 class ConnectFour:
     def __init__(self, board: typing.Optional[AbstractNeoTrellisGame] = None):
@@ -26,7 +27,7 @@ class ConnectFour:
 
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
         self.register_callbacks()
-        
+        self.show_current_player()
        
         
         
@@ -61,7 +62,7 @@ class ConnectFour:
             self.board.set_cell_color(c,r, Colors.WHITE)
         
         self.board.update_display()
-
+        
         
 
         pass
@@ -127,6 +128,18 @@ class ConnectFour:
     def show_current_player(self):
         #TODO: Function to indicate on the board which player is currently placing a piece
         pass
+        if(TURN):
+            for col in range(len(self.game_state[0])):
+           # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+                self.board.set_cell_color(col,0, PLAYER_1)
+            TURN = FALSE
+        else:
+            for col in range(len(row)):
+           # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+                self.board.set_cell_color(col,0, PLAYER_2) 
+            TURN = True   
 
     def is_board_full(self):
         #TODO: Return whether or not the game state has no more legal moves
