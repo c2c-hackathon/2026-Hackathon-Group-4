@@ -29,7 +29,7 @@ class ConnectFour:
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
         self.register_callbacks()
         #self.show_current_player()
-        self.show_tie_game()
+        
         
         
 
@@ -90,24 +90,26 @@ class ConnectFour:
         if y == 0 and x < 8:
 
 
+
             if self.is_board_full():
                 self.show_tie_game()
-                pass
+                self.reset_game()
             elif self.is_column_full(x):
-                pass
-            lowest = self.find_lowest_empty_row(x)
-
-            if TURN:
-                player = PLAYER_1
-                TURN = False
-                self.game_state[lowest][x] = "1"
+                return
             else:
-                player = PLAYER_2
-                TURN = True
-                self.game_state[lowest][x] = "2"
+                lowest = self.find_lowest_empty_row(x)
 
-            self.board.set_cell_color(x,lowest, player)
-            self.board.update_display()
+                if TURN:
+                    player = PLAYER_1
+                    self.show_current_player()
+                    self.game_state[lowest][x] = "1"
+                else:
+                    player = PLAYER_2
+                    self.show_current_player()
+                    self.game_state[lowest][x] = "2"
+
+                self.board.set_cell_color(x,lowest, player)
+                self.board.update_display()
                         
 
         
@@ -145,14 +147,14 @@ class ConnectFour:
             for col in range(len(self.game_state[0])):
            # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
             #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
-                self.board.set_cell_color(col,0, PLAYER_1)
-            TURN = FALSE
+                self.board.set_cell_color(col,0, PLAYER_2)
+            TURN = False
         else:
-            for col in range(len(row)):
+            for col in range(len(self.game_state[0])):
            # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
             #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
-                self.board.set_cell_color(col,0, PLAYER_2) 
-            #TURN = True   
+                self.board.set_cell_color(col,0, PLAYER_1) 
+            TURN = True   
 
     def is_board_full(self):
         #TODO: Return whether or not the game state has no more legal moves
