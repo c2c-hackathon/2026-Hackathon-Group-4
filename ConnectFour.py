@@ -86,13 +86,29 @@ class ConnectFour:
             self.reset_game()
         #self.board.set_cell_color(x, y, PLAYER_1)
         #self.board.update_display()
-
+        global TURN
         if y == 0 and x < 8:
-            if TURN == True:
+
+
+            if self.is_board_full():
+                self.show_tie_game()
+                pass
+            elif self.is_column_full(x):
+                pass
+            lowest = self.find_lowest_empty_row(x)
+
+            if TURN:
                 player = PLAYER_1
+                TURN = False
+                self.game_state[lowest][x] = "1"
             else:
                 player = PLAYER_2
+                TURN = True
+                self.game_state[lowest][x] = "2"
 
+            self.board.set_cell_color(x,lowest, player)
+            self.board.update_display()
+                        
 
             if self.is_board_full():
                 show_tie_game()
@@ -118,10 +134,10 @@ class ConnectFour:
     def find_lowest_empty_row(self, col: int):
         #TODO: Return the lowest empty row in the column.
         pass
-        for i in self.game_state:
-            if self.game_state[i][col] != "o" or self.game_state[i][col] != "c":
-                return i - 1
-                
+        for i in range(len(self.game_state) -1):
+            last = len(self.game_state) -1 -i
+            if self.game_state[last][col] == "o" :
+                return last
 
     def place_piece(self, col: int):
         #TODO: Finds the legal move in the column, and updates the game state to reflect the new piece, checking to see if a player has won with that new piece. Don't forget to play a sound!
@@ -150,7 +166,7 @@ class ConnectFour:
            # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
             #self.board.activate_key(col, 0, Action.BUTTON_RELEASED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
                 self.board.set_cell_color(col,0, PLAYER_1)
-            #TURN = False
+            TURN = FALSE
         else:
             for col in range(len(row)):
            # self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
@@ -183,14 +199,14 @@ class ConnectFour:
 
     def check_win(self):
         #TODO: Check the game state to see if any player has won or if there is a draw
-        for i in self.game_state[:len(self.game_state(0)) - 4]:
-            for j in i[len(i) - 4]:
+        for i in range(len(self.game_state) -4):
+            for j in range (len(self.game_state[0]) -4):
                 #diagonal
-                if self.game_state(i,j) == self.game_state(i-1,j +1) and self.game_state(i,j ) == self.game_state(i-2,j+2) and self.game_state(i,j ) == self.game_state(i-3,j+3):
+                if self.game_state[i][j] == self.game_state[i-1][j +1] and self.game_state[i][j] == self.game_state[i-2][j+2] and self.game_state[i][j] == self.game_state[i-3][j+3]:
                     return True
-                elif self.game_state(i,j) == self.game_state(i,j +1) and self.game_state(i,j) == self.game_state(i,j +2) and self.game_state(i,j) == self.game_state(i,j +3):
+                elif self.game_state[i][j] == self.game_state[i][j +1] and self.game_state[i][j] == self.game_state[i][j +2] and self.game_state[i][j] == self.game_state[i][j +3]:
                     return True
-                elif self.game_state(i,j) == self.game_state(i+1,j) and self.game_state(i,j) == self.game_state(i+2,j) and self.game_state(i,j) == self.game_state(i+3,j):
+                elif self.game_state[i][j] == self.game_state[i+1][j] and self.game_state[i][j] == self.game_state[i+2][j] and self.game_state[i][j] == self.game_state[i+3][j]:
                     return True
         return False
         
