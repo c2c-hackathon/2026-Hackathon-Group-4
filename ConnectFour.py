@@ -24,6 +24,7 @@ class ConnectFour:
             ["o", "o", "o", "o", "o", "o", "o", "b"],
         ] #TODO: Choose a structure to represent what pieces are currently in the game board
         self.register_callbacks()
+        
        
         
         
@@ -38,9 +39,13 @@ class ConnectFour:
         #TODO: Register callbacks that will be run when buttons are pressed and released
         self.board.set_callback(0, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
         self.board.activate_key(0, 0, Action.BUTTON_PRESSED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
+        #self.board.update_display()
+        row = self.game_state[0]
+
+        for col in range(len(row)):
+            self.board.set_callback(col, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
+            self.board.activate_key(col, 0, Action.BUTTON_PRESSED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
         self.board.update_display()
-      #  self.board.set_callback(0, 0, self.handle_button_event) # Example of how to register a callback (function) for button 0, 0. Must be done for every button that runs a function
-        #self.board.activate_key(0, 0, Action.BUTTON_PRESSED) # Even though the callback is set, if the key is not enabled it will not be run. This is how you enable
 
         pass
   
