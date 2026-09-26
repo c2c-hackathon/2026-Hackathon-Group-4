@@ -12,6 +12,8 @@ PLAYER_1 = Colors.RED
 PLAYER_2 = Colors.BLUE
 TURN = True
 
+global PLAYER_2 
+
 class ConnectFour:
     def __init__(self, board: typing.Optional[AbstractNeoTrellisGame] = None):
         self.board = board if board is not None else NeoTrellisGame()
