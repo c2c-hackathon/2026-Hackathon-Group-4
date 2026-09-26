@@ -8,11 +8,9 @@ from adafruit_neotrellis.neotrellis import NeoTrellis
 
 PLAYER_1 = Colors.RED
 
-
 PLAYER_2 = Colors.BLUE
 TURN = True
 
-global PLAYER_2 
 
 class ConnectFour:
     def __init__(self, board: typing.Optional[AbstractNeoTrellisGame] = None):
@@ -108,15 +106,32 @@ class ConnectFour:
         This is an example of how a callback function will look. It takes an x value, y value, and action, which will indicate what button activated the callback and what action the user did to run it.
         See NeoTrellisGame.set_callback() for info about callbacks.
         """
+        global PLAYER_1
+        global PLAYER_2 
         #TODO: Implement what will happen when the button at position x,y is pressed or released
         self.board.set_cell_color(x, y, PLAYER_1)
         self.board.update_display()
+        
+
+        if x==7 and y==1:
+            PLAYER_1 = Colors.RED
+        elif x==7 and y==2:
+            PLAYER_1 = Colors.PURPLE
+        else:
+            PLAYER_1 = Colors.BROWN    
+        if x==7 and y==4:
+            PLAYER_2 = Colors.BLUE
+        elif x==7 and y==5:
+            PLAYER_2 = Colors.YELLOW
+        else:
+            PLAYER_2 = Colors.ORANGE
         if x == 7 and y==0:
             self.reset_game()
         #self.board.set_cell_color(x, y, PLAYER_1)
         #self.board.update_display()
         global TURN
         if y == 0 and x < 8:
+
 
 
 
@@ -151,18 +166,7 @@ class ConnectFour:
             #set color to coord
             self.board.set_cell_color(lowest,x, player)
             #check if win
-        if x==7 and y==1:
-            PLAYER_1 = Colors.RED
-        elif x==7 and y==2:
-            PLAYER_1 = Colors.PURPLE
-        else:
-            PLAYER_1 = Colors.BROWN    
-        if x==7 and y==4:
-            PLAYER_2 = Colors.BLUE
-        elif x==7 and y==5:
-            PLAYER_2 = Colors.YELLOW
-        else:
-            PLAYER_2 = Colors.ORANGE
+        
 
 
 
